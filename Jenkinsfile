@@ -23,16 +23,32 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t devops-exp10 .'
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" build -t devops-exp10 .'
             }
         }
 
         stage('Deploy Container') {
             steps {
-                bat 'docker stop devops-exp10-container || exit 0'
-                bat 'docker rm devops-exp10-container || exit 0'
-                bat 'docker run -d -p 3000:3000 --name devops-exp10-container devops-exp10'
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" stop devops-exp10-container || exit 0'
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" rm devops-exp10-container || exit 0'
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" run -d -p 3000:3000 --name devops-exp10-container devops-exp10'
             }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                bat 'powershell -Command "Start-Sleep -Seconds 5; Invoke-WebRequest http://localhost:3000/health -UseBasicParsing"'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'DevOps pipeline completed successfully.'
+        }
+
+        failure {
+            echo 'DevOps pipeline failed. Check the console output.'
         }
     }
 }
