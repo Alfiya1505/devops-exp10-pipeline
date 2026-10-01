@@ -23,15 +23,15 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" build -t devops-exp10 .'
+                bat '"C:\\Users\\hello\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t devops-exp10 .'
             }
         }
 
         stage('Deploy Container') {
             steps {
-                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" stop devops-exp10-container || exit 0'
-                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" rm devops-exp10-container || exit 0'
-                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" run -d -p 3000:3000 --name devops-exp10-container devops-exp10'
+                bat '"C:\\Users\\hello\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" stop devops-exp10-container || exit 0'
+                bat '"C:\\Users\\hello\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" rm devops-exp10-container || exit 0'
+                bat '"C:\\Users\\hello\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" run -d -p 3000:3000 --name devops-exp10-container devops-exp10'
             }
         }
 
